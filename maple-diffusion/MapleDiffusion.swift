@@ -659,8 +659,8 @@ class MapleDiffusion {
     var unetTheBattleOfTheFiveArmiesExecutable: MPSGraphExecutable?
     var theBattleOfTheFiveArmiesIndices = [MPSGraphTensor: Int]()
     
-    var width: NSNumber = 64
-    var height: NSNumber = 64
+    var width: NSNumber = 32
+    var height: NSNumber = 32
     
     public init(saveMemoryButBeSlower: Bool = true) {
         saveMemory = saveMemoryButBeSlower

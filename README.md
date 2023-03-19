@@ -1,3 +1,13 @@
+
+- `maple-convert.py` を `.safetensors`モデルに対応
+- 追加pipモジュールを `requirements.txt` に追加
+- `ContentView.swift`で生成時にスリープをしないように設定
+- promptの初期値を追加
+- `MapleDiffusion.swift`で画像サイズを256x256に変更
+
+- モデル実行時に失敗する場合
+   - `MapleDiffusion.swift` の読み込みモデルデータ名を `cond_stage_model.transformer.text_model` から `cond_stage_model.transformer` に変更
+
 # 🍁 Maple Diffusion
 
 Maple Diffusion runs Stable Diffusion models **locally** on macOS / iOS devices, in Swift, using the MPSGraph framework (not Python).

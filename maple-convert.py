@@ -6,7 +6,14 @@ from pathlib import Path
 import torch as th
 import numpy as np
 
-ckpt = th.load(sys.argv[1], map_location="cpu")
+import os
+from safetensors.torch import load_file
+
+ext=os.path.splitext(sys.argv[1])[1]
+if ext=='.safetensors':
+    ckpt = load_file(sys.argv[1], device="cpu")
+else:
+    ckpt = th.load(sys.argv[1], map_location="cpu")
 outpath = Path("maple-diffusion/bins")
 outpath.mkdir(exist_ok=True)
 
@@ -24,7 +31,8 @@ if not vocab_dest.exists():
         print("downloaded clip vocab")
 
 # model weights
-for k, v in ckpt["state_dict"].items():
+for k, v in ckpt.items() if ext=='.safetensors' else ckpt["state_dict"].items():
+    if "state_dict" in k: continue
     if "first_stage_model.encoder" in k: continue
     if not hasattr(v, "numpy"): continue
     v.numpy().astype('float16').tofile(outpath / (k + ".bin"))

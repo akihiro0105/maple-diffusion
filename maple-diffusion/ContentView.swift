@@ -28,11 +28,14 @@ struct ContentView: View {
     }
     
     func generate() {
+        UIApplication.shared.isIdleTimerDisabled=true
         dispatchQueue.async {
             running = true
             progressStage = ""
             progressProp = 0
-            mapleDiffusion.generate(prompt: prompt, negativePrompt: negativePrompt, seed: Int.random(in: 1..<Int.max), steps: Int(steps), guidanceScale: guidanceScale) { (cgim, p, s) -> () in
+            mapleDiffusion.generate(prompt: "masterpiece,best quality," + prompt, 
+            negativePrompt: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry," + negativePrompt, 
+            seed: Int.random(in: 1..<Int.max), steps: Int(steps), guidanceScale: guidanceScale) { (cgim, p, s) -> () in
                 if (cgim != nil) {
                     image = Image(cgim!, scale: 1.0, label: Text("Generated image"))
                 }
@@ -40,6 +43,9 @@ struct ContentView: View {
                 progressStage = s
             }
             running = false
+            DispatchQueue.main.async {
+                            UIApplication.shared.isIdleTimerDisabled=false
+                        }
         }
     }
     var body: some View {
