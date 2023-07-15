@@ -33,8 +33,8 @@ struct ContentView: View {
             running = true
             progressStage = ""
             progressProp = 0
-            mapleDiffusion.generate(prompt: "masterpiece,best quality," + prompt, 
-            negativePrompt: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry," + negativePrompt, 
+            mapleDiffusion.generate(prompt: "masterpiece,best quality,solo," + prompt, 
+            negativePrompt: "lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits, cropped, worst quality, low quality, normal quality, jpeg artifacts, signature, watermark, username, blurry,easynegative,worst quality,low quality,bad anatomy,realistic,nose,lips,adult,fat,sad, inaccurate limb,extra digit,fewer digits,six fingers,monochrome," + negativePrompt,
             seed: Int.random(in: 1..<Int.max), steps: Int(steps), guidanceScale: guidanceScale) { (cgim, p, s) -> () in
                 if (cgim != nil) {
                     image = Image(cgim!, scale: 1.0, label: Text("Generated image"))
